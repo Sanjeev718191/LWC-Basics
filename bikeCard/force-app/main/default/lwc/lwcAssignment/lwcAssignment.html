@@ -1,0 +1,31 @@
+<template>
+    <h1>Aura Assignment</h1>
+
+    <lightning-combobox name="objectSelectList" label="Select an Object" placeholder="Select an Object"
+        options={objectsMap} onchange={getObjectAttributes} required>
+    </lightning-combobox>
+
+    <lightning-dual-listbox name="multipleOptions" label="Select Options" source-label="Available"
+        selected-label="Selected" options={availableFields} onchange={setSelectedFields}>
+    </lightning-dual-listbox>
+
+    <div class="slds-align_absolute-center" style="height:5rem">
+        <lightning-button label="Generate Query" title="QueryButton" onclick={showQuery}></lightning-button>
+    </div>
+
+    <template if:true={queryVisibility}>
+        <div class="slds-box editor slds-text-longform">
+            <p>{query}</p>
+        </div>
+        <div class="slds-align_absolute-center" style="height:5rem">
+            <lightning-button label="Run Query" title="RunButton" onclick={runQuery}></lightning-button>
+        </div>
+    </template>
+
+    <template if:true={soqlDataVisibility}>
+        <lightning-card icon-name="standard:record_lookup" title="Queried Data">
+            <lightning-datatable data={queryData} columns={columns} key-field="Id" hide-checkbox-column>
+            </lightning-datatable>
+        </lightning-card>
+    </template>
+</template>
